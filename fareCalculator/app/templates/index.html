@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fare Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            background-color: lightsalmon;
+        }
+
+        .fareCal {
+            display: grid;
+            grid-template-rows: 80px 520px;
+            height: 420px;
+            width: 360px;
+            padding: 16px;
+            background-color: white;
+            border-radius: 4px;
+        }
+
+        h1, label {
+            color: #5A5A5A;
+        }
+
+        .titleCal {
+            display: flex;
+            justify-content: center;
+        }
+
+        .paraCal {
+            font-size: 18px;
+            padding: 16px 16px 16px 16px;
+        }
+
+        .paraItem {
+            position: relative;
+            padding: 16px 0 16px 0;
+        }
+
+        #dist, #base, #per {
+            position: absolute;
+            right: 0;
+            height: 18px;
+            width: 20%;
+            padding: 4px;
+            outline: none;
+            border-radius: 4px;
+        }
+
+        .paraLine {
+            margin: 16px 0 16px 0;
+            border-top: 2px solid lightsalmon;
+        }
+    </style>
+    <script>
+        // Function to calculate and update the total fare
+        function calculateFare() {
+            // Get the input values
+            var distance = parseFloat(document.getElementById('dist').value);
+            var baseFare = parseFloat(document.getElementById('base').value);
+            var perKmFare = parseFloat(document.getElementById('per').value);
+
+            // Calculate the total fare
+            var totalFare = baseFare + (distance * perKmFare);
+
+            // Update the total fare label
+            var totalLabel = document.getElementById('total');
+            totalLabel.innerHTML = 'Total: ' + totalFare + ' <small>Rupees</small>';
+        }
+    </script>
+</head>
+<body>
+    <!-- Container -->
+    <div class="container">
+        <!-- Fare Calculator -->
+        <div class="fareCal">
+            <!-- Title -->
+            <div class="titleCal">
+                <h1>Fare Calculator</h1>
+            </div>
+            <!-- Parameters-->
+            <div class="paraCal">
+                <!-- Distance -->
+                <div class="paraItem">
+                    <label for="dist">Distance (km)</label>
+                    <input id="dist" type="number">
+                </div>
+                <!-- Base Fare -->
+                <div class="paraItem">
+                    <label for="base">Base Fare (Rupees):</label>
+                    <input id="base" type="number" value="{{ base_fare }}" disabled>
+                </div>
+                <!-- Per Kilometer Fare -->
+                <div class="paraItem">
+                    <label for="per">Per Kilometer Fare (Rupees):</label>
+                    <input id="per" type="number" value="{{ per_km_fare }}" disabled>
+                </div>
+                <!-- Border -->
+                <div class="paraLine"></div>
+                <!-- Total Fare -->
+                <div class="paraItem">
+                    <label id="total" for="total">Total: <span id="fare_total">000</span> <small>Rupees</small></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trigger the calculation on input change -->
+    <script>
+        // Get the input elements
+        var distanceInput = document.getElementById('dist');
+
+        // Add event listeners to the input elements
+        distanceInput.addEventListener('input', calculateFare);
+    </script>
+</body>
+</html>
+
